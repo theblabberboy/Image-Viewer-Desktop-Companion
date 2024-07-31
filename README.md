@@ -55,7 +55,7 @@ The GUI setup involves:
 2. Two panels are created: one for displaying the artwork and one for displaying the artwork details.
 3. A queue is initialized to store the fetched artworks.
 4. A background thread is started to continuously fetch artworks and add them to the queue.
-5. The `display_artwork(q)` function runs every 5 seconds to update the artwork and details from the queue.
+5. The `display_artwork(q)` function runs every 10 seconds to update the artwork and details from the queue.
 
 ## License
 
