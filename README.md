@@ -65,3 +65,11 @@ This project is licensed under the 4-Clause BSD License. See the [LICENSE](LICEN
 
 - [OpenAI ChatGPT](https://www.openai.com/chatgpt) for assistance in code review and improvement.
 - The Metropolitan Museum of Art for providing the public API.
+
+
+## Suuport my Work
+
+If you enjoyed this project and want to see more, follow me on Instagram and YouTube for updates, tutorials, and more cool projects!
+
+- [Instagram: @your_username](https://www.instagram.com/your_username/)
+- [YouTube: Your Channel Name](https://www.youtube.com/channel/your_channel_id)
