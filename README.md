@@ -1,81 +1,67 @@
 # Art Viewer
 
-Art Viewer is a Python desktop application that displays famous paintings and sculptures one by one in a companion window. The artworks are fetched from the Metropolitan Museum of Art API and displayed along with their titles and artist names. This project demonstrates the use of Tkinter for GUI, PIL for image processing, and threading for efficient background fetching.
+A Python application that displays famous artworks from the Metropolitan Museum of Art on your desktop. The application fetches artworks from the museum's API and presents them in a small window with details about each artwork.
 
 ## Features
 
-- Displays random artworks from the Metropolitan Museum of Art
-- Shows the title and artist name for each artwork
-- Updates the artwork every 5 seconds
-- Uses a dark-themed GUI
-
-## Requirements
-
-- Python 3.x
-- Tkinter
-- PIL (Pillow)
-- requests
+- Displays famous artworks and sculptures.
+- Updates artwork every few seconds.
+- Uses the Metropolitan Museum of Art API for fetching artwork data.
 
 ## Installation
 
-1. Clone this repository:
-    ```bash
-    git clone https://github.com/your-username/art-viewer.git
-    cd art-viewer
-    ```
+1. Ensure you have Python 3 installed.
+2. Install the required packages using pip:
 
-2. Install the required packages:
     ```bash
     pip install pillow requests
     ```
-
-## Usage
-
-Run the following command to start the application:
-```bash
-python art_viewer.py
 
 ## Code Overview
 
 The application consists of the following main components:
 
-### Fetching Artworks:
+### Fetching Artworks
 
-```python
-def fetch_artworks(q):
-    # Fetches random artworks from the Metropolitan Museum of Art API and stores them in a queue.
+The `fetch_artworks(q)` function:
 
-## Displaying Artworks:
+- Fetches random artworks from the Metropolitan Museum of Art API.
+- Stores the fetched artworks in a queue.
 
-```python
-def display_artwork(q):
-    # Retrieves artworks from the queue and displays them in the application window.
+### Displaying Artworks
 
+The `display_artwork(q)` function:
 
-## Background Thread:
+- Retrieves artworks from the queue.
+- Displays the artworks and their details in the application window.
 
-```python
-def start_fetching(q):
-    # Runs the fetch_artworks(q) function in a continuous loop to keep the queue populated with artworks.
+### Background Thread
 
-## GUI Setup:
+The `start_fetching(q)` function:
 
-```python
-Copy code
-# Sets up the main application window with Tkinter, including the panels for displaying artwork and artwork details.
-root = tk.Tk()
+- Runs the `fetch_artworks(q)` function in a continuous loop.
+- Keeps the queue populated with artworks.
 
+### GUI Setup
+
+The GUI setup involves:
+
+- Creating the main application window with Tkinter.
+- Including panels for displaying artwork and artwork details.
 
 ## How It Works
+
 1. The application starts by creating the main window and setting its size and position.
 2. Two panels are created: one for displaying the artwork and one for displaying the artwork details.
 3. A queue is initialized to store the fetched artworks.
 4. A background thread is started to continuously fetch artworks and add them to the queue.
-5. The display_artwork(q) function runs every 5 seconds to update the artwork and details from the queue.
+5. The `display_artwork(q)` function runs every 5 seconds to update the artwork and details from the queue.
 
 ## License
-This project is licensed under the 4-Clause BSD License. See the LICENSE file for details.
+
+This project is licensed under the 4-Clause BSD License. See the [LICENSE](LICENSE) file for details.
 
 ## Credits
-- OpenAI ChatGPT for assistance in code review and improvement.
+
+- [OpenAI ChatGPT](https://www.openai.com/chatgpt) for assistance in code review and improvement.
 - The Metropolitan Museum of Art for providing the public API.
