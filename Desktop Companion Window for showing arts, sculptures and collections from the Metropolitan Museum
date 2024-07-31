@@ -1,0 +1,90 @@
+import tkinter as tk
+from PIL import Image, ImageTk
+import requests
+from io import BytesIO
+import random
+import threading
+import queue
+
+def fetch_artworks(q):
+    try:
+        response = requests.get("https://collectionapi.metmuseum.org/public/collection/v1/objects")
+        data = response.json()
+
+        object_ids = data['objectIDs']
+
+        for _ in range(10):
+            random_id = random.choice(object_ids)
+            detail_response = requests.get(f"https://collectionapi.metmuseum.org/public/collection/v1/objects/{random_id}")
+            detail_data = detail_response.json()
+
+            image_url = detail_data['primaryImage']
+            if image_url:
+                image_response = requests.get(image_url)
+                img_data = Image.open(BytesIO(image_response.content))
+
+                img_data = img_data.resize((180,180), Image.LANCZOS)
+
+                q.put((img_data, detail_data.get('title', 'Unknown Title'), detail_data.get('artistDisplayName', 'Unknown Artist')))
+
+    except Exception as e:
+        print(f"An error occured: {e}")
+
+
+def display_artwork(q):
+    if not q.empty():
+        img_data, title, artist = q.get()
+        img = ImageTk.PhotoImage(img_data)
+        art_panel.config(image = img)
+        art_panel.image = img
+        details_panel.config(text=f"{title}\nby {artist}")
+    else:
+        art_panel.config(image='')
+        details_panel.config(text="Loading more artworks...")
+
+    root.after(10000, display_artwork, q)
+
+def start_fetching(q):
+    while True:
+        fetch_artworks(q)
+
+
+#Create a GUI (main window) and put name to it
+root = tk.Tk()
+root.title("Art Viewer")
+
+#Set background color
+root.configure(bg = 'black')
+
+screen_width = root.winfo_screenwidth()
+screen_height = root.winfo_screenheight()
+
+#set size of window
+window_width = 300
+window_height = 300
+
+#For position of the window
+position_x = screen_width - window_width - 30
+position_y = screen_height - window_height - 50
+
+#Set geometry
+root.geometry(f"{window_width}x{window_height}+{position_x}+{position_y}")
+
+art_panel = tk.Label(root, bg = 'black')
+art_panel.pack(pady= 20)
+
+#create panel
+details_panel = tk.Label(root, text="", font=("Arial", 10), wraplength=window_width - 20, bg = 'black', fg = 'white')
+details_panel.pack()
+
+#Create Queue
+image_queue = queue.Queue()
+
+#Create a background thread
+threading.Thread(target=start_fetching, args = (image_queue,), daemon=True).start()
+
+#Start displaying
+display_artwork(image_queue)
+
+#start GUI and the event loop
+root.mainloop()
