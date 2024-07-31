@@ -71,5 +71,5 @@ This project is licensed under the 4-Clause BSD License. See the [LICENSE](LICEN
 
 If you enjoyed this project and want to see more, follow me on Instagram and YouTube for updates, tutorials, and more cool projects!
 
-- [Instagram: @your_username](https://www.instagram.com/the_py_peeper/)
+- [Instagram: @your_username](https://www.instagram.com/the_py_peeper)
 - [YouTube: Your Channel Name](www.youtube.com/@the_py_peeper01)
